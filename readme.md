@@ -5,7 +5,7 @@ pip install (Library Name)
 All Libraries are must.
 
 step 2:
-python Server.py
+open new terminal and run 'python Server.py'
 
 step 3:
 open a new terminal
