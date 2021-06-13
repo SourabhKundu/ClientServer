@@ -10,7 +10,7 @@ filePath = "dataset_new.csv"
 if not os.path.exists(filePath): 
     file = pd.DataFrame(columns=["Timestamp", "Value", "Sensor"])
     file.to_csv(filePath,index=False)
-    del file
+    
 
     
 @app.route("/", methods=['POST'])
