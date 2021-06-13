@@ -49,7 +49,7 @@ for row in df:
     except Exception as e:
         # if Error occured update the value of successful and bounceand add to current_bounce list
         print("Exception : ", str(e))
-        current_bounce.append(bounce)
+        current_bounce.append(payload)
         bounced_count += 1
         save_state(successful_count, bounced_count)
 
