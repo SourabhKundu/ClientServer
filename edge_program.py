@@ -28,24 +28,26 @@ for row in df:
 
     # Bounecd in Current Iteration
     current_bounce = []
-    payload = json.dumps(row[1])
+    payload = json.dumps(row)
     wait = 10
 
     try:
         # Calling the server
         res = requests.post('http://127.0.0.1:5000/', data=payload).json()
+        print(payload)
         
 
         # if Failed update the value of successful and bounceand add to current_bounce list
         if res["status"] != "successful":
             current_bounce.append(payload)
             bounced_count += 1
+            print("Unsuccessful -",payload)
             save_state(successful_count, bounced_count)
 
         # If successful update the value of successful and bounce
         else:
             successful_count += 1
-            print(payload)
+            print("Successful -",payload)
             save_state(successful_count, bounced_count)
 
     except Exception as e:
@@ -66,20 +68,21 @@ for row in df:
                 # if Failed update the value of successful and bounceand add to current_bounce list
                 if res["status"] != "successful":
                     current_bounce.append(bounce)
-                    bounced_count += 1
+                    
                     save_state(successful_count, bounced_count)
 
                 # If successful update the value of successful and bounce
                 else:
                     successful_count += 1
                     bounced_count -= 1
+                    print("Successful -",bounce)
                     save_state(successful_count, bounced_count)
 
             except Exception as e:
                 # if Error occured update the value of successful and bounceand add to current_bounce list
                 print("Exception : ", str(e))
                 current_bounce.append(bounce)
-                bounced_count += 1
+                
                 save_state(successful_count, bounced_count)
 
             # reduceing the total wait time by five seconds and checking if we want to continue or call the main call
