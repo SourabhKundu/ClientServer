@@ -18,7 +18,7 @@ def server():
     if random.choice([True,False]):
         print(request.data)
         
-        file = pd.DataFrame(json.loads(request.data), index=[0])
+        file = pd.DataFrame(json.loads(request.data))
         file.to_csv(filePath, mode="a",index=None,header=None)
         
         return {"status": "successful"}
