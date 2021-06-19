@@ -29,11 +29,12 @@ for row in df:
     # Bounecd in Current Iteration
     current_bounce = []
     payload = json.dumps(row[1])
-    wait = 60
+    wait = 10
 
     try:
         # Calling the server
         res = requests.post('http://127.0.0.1:5000/', data=payload).json()
+        
 
         # if Failed update the value of successful and bounceand add to current_bounce list
         if res["status"] != "successful":
@@ -44,6 +45,7 @@ for row in df:
         # If successful update the value of successful and bounce
         else:
             successful_count += 1
+            print(payload)
             save_state(successful_count, bounced_count)
 
     except Exception as e:
@@ -81,13 +83,13 @@ for row in df:
                 save_state(successful_count, bounced_count)
 
             # reduceing the total wait time by five seconds and checking if we want to continue or call the main call
-            wait -= 5
+            wait -= 1
             if not wait:
                 break
 
             # bouned_request
             bounced_request.pop(0)
-            time.sleep(5)
+            time.sleep(1)
 
     # Updating the Bounce List
     bounced_request.extend(current_bounce)
